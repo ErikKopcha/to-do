@@ -21,3 +21,8 @@ body {
     color: #c7c7c7;
     text-decoration: line-through;
 }
+
+.show {
+    display: block;
+    background-color: rgba(0, 0, 0, 0.5);
+}
