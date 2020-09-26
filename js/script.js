@@ -12,19 +12,6 @@ checkTasks();
 inputTaskName.setAttribute('maxlength', '70');
 inputEdit.setAttribute('maxlength', '70');
 
-modalSaveBtn.addEventListener('click', () => {
-  if (inputEdit.value != '') {
-    modalEdit.classList.remove('show', 'fade');
-    try {
-      document.querySelector('.task-title').innerHTML = inputEdit.value;
-    } catch (e) {
-      console.warn(e);
-    }
-  } else {
-    inputEdit.style.borderColor = `red`;
-  }
-});
-
 modalCloseBnts.forEach(el => {
   el.addEventListener('click', () => {
     modalEdit.classList.remove('show', 'fade');
@@ -69,9 +56,11 @@ form.addEventListener('submit', (e) => {
     
     buttonEdit.classList.add('btn', 'btn-light', 'align-self-end');
     buttonEdit.innerHTML = ` Редактировать`;
-    buttonEdit.addEventListener('click', () => {
+    buttonEdit.addEventListener('click', (e) => {
       modalEdit.classList.add('show', 'fade');
       inputEdit.value = span.textContent;
+
+      setTaskValue(span);
     });
 
     span.classList.add('task-title');
@@ -79,7 +68,7 @@ form.addEventListener('submit', (e) => {
     span.setAttribute('contenteditable', false);
 
     bwnWrapper.appendChild(buttonDone);
-    bwnWrapper.appendChild(buttonEdit);
+    // bwnWrapper.appendChild(buttonEdit);
     bwnWrapper.appendChild(buttonDelete);
     li.appendChild(span);
     li.appendChild(bwnWrapper);
@@ -99,4 +88,19 @@ function checkTasks() {
   } else {
     emptyListItem.innerHTML = `Список дел:`;
   }
+}
+
+function setTaskValue(span) {
+  modalSaveBtn.addEventListener('click', () => {
+    if (inputEdit.value != '') {
+      modalEdit.classList.remove('show', 'fade');
+      try {
+        span.innerHTML = inputEdit.value;
+      } catch (e) {
+        console.warn(e);
+      }
+    } else {
+      inputEdit.style.borderColor = `red`;
+    }
+  });
 }
